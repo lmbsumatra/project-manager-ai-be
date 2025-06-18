@@ -115,12 +115,12 @@ async def generate_steps(req: ProjectRequest):
 
                # Validate and transform milestones with milestone_number
         validated_milestones = []
-        for idx, milestone in enumerate(parsed.get("milestones", []), start=1):
+        for idx, milestone in enumerate(parsed.get("milestones", []), start=0):
             milestone_title = milestone.get("milestone_title") or milestone.get("title") or f"Milestone {idx}"
             steps = []
-            for i, step in enumerate(milestone.get("steps", [])):
+            for i, step in enumerate(milestone.get("steps", []), start=0):
                 try:
-                    step_number = step.get("step_number") or i + 1
+                    step_number = i
                     description = step.get("description") or step.get("step_description") or ""
                     if not description:
                         continue
